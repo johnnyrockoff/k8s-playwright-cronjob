@@ -1,0 +1,12 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: playwright-app
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/johnnyrockoff/k8s-playwright-cronjob
+    path: ./ci
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
