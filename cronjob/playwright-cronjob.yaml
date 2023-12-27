@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: playwright-cronjob
 spec:
-  schedule: "0 0 * * *"
+  schedule: "*/5 * * * *"
   jobTemplate:
     spec:
       template:
