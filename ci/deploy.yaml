@@ -15,3 +15,5 @@ spec:
       containers:
         - name: playwright-container
           image: playwright-automation:latest
+      imagePullSecrets:
+        - name: regcred
