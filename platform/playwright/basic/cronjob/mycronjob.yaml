@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mycronjob
+spec:
+  schedule: "*/2 * * * *"  # Run every 5 minutes (adjust the schedule as needed)
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: playwright-test
+              image: tork-basic:latest  # Replace with your Docker image and tag
+          restartPolicy: OnFailure
