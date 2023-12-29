@@ -11,6 +11,10 @@ RUN npm install -g npm@10.2.5
 RUN adduser --system --group testrunner
 RUN chown -R testrunner:testrunner /testfolder
 
+COPY ../../.. .
+
+RUN npm install
+
 USER testrunner
 
 ENTRYPOINT ["npx", "playwright", "test"]
