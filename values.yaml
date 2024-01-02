@@ -1,10 +1,17 @@
-playwright:
-  version: "1.17.1"
-  browsers:
-    - name: "chromium"
-      options:
-        headless: true
-  testFiles:
-    - "tests/*.js"
-  cronJob:
-    schedule: "* * * * *"
+environment: test
+container_image: ablt01acrvczb6dxwjz.azurecr.io/mojito/playwright-baseimage
+container_image_version: 1.0.6
+
+cronjob:
+  schedule: "*/1 * * * *"
+  image:
+    repository: "playwright-image-basic"
+    tag: "latest"
+  scriptPath: "./tests-suites/cmd/playwright"
+
+tests:
+  - configs:
+    cmd_settings:
+      executor_name_playwrigh: "playwright_cdm_testrunner"
+      target_service: "tork-uitestrunner"
+      tests_folder_path: "/tests-suite/cdm/playwright"

@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "k8s-playwright-cronjob" . }}-cronjob
+spec:
+  schedule: "0 0 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: playwright-tests
+              image: playwright-image-basic:latest
+              command: [""]
+              args:
+                - --testFiles
+                - /etc/playwright/tests/testFiles.txt
+          restartPolicy: OnFailure
+          volumes:
+            - name: tc00001-volume
+              configMap:
+                name: {{ .cmd_settings.executor_name_playwrigh }}-{{ $.Values.environment }}-configmap

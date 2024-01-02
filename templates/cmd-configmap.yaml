@@ -1,0 +1,9 @@
+{{- range .Values.tests }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .cmd_settings.executor_name_playwrigh }}-{{ $.Values.environment }}-configmap
+data:
+  testFiles: |-
+    {{ .cmd_settings.tests_folder_path }}/tc00001.spec.js
+{{- end }}
