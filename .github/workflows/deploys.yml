@@ -1,4 +1,4 @@
-name: Publish Helm Chart 1.0.4
+name: Publish Helm Chart 1.0.5
 
 on:
   push:
