@@ -6,7 +6,7 @@ default:
   fullname: "k8s-playwright-cronjob"
 
 cronjob:
-  schedule: "*/1 * * * *"
+  schedule: "* * * * *"
   image:
     repository: "playwright-image-basic"
     tag: "latest"
