@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ include "k8s-playwright-cronjob" . }}-cronjob
+  name: cdm-plawyright-{{ $.Values.environment }}
 spec:
   schedule: "0 0 * * *"
   jobTemplate:
@@ -19,4 +19,4 @@ spec:
           volumes:
             - name: tc00001-volume
               configMap:
-                name: {{ .cmd_settings.executor_name_playwrigh }}-{{ $.Values.environment }}-configmap
+                name: cdm_plawyright_{{ $.Values.environment }}_configmap

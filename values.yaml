@@ -2,6 +2,9 @@ environment: test
 container_image: ablt01acrvczb6dxwjz.azurecr.io/mojito/playwright-baseimage
 container_image_version: 1.0.6
 
+default:
+  fullname: "k8s-playwright-cronjob"
+
 cronjob:
   schedule: "*/1 * * * *"
   image:
@@ -12,6 +15,6 @@ cronjob:
 tests:
   - configs:
     cmd_settings:
-      executor_name_playwrigh: "playwright_cdm_testrunner"
+      executor_name_playwright: "playwright-cdm-testrunner"
       target_service: "tork-uitestrunner"
       tests_folder_path: "/tests-suite/cdm/playwright"
