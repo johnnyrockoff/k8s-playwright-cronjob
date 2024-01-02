@@ -58,7 +58,7 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: packaged-charts/k8s-playwright-cronjob-${{ github.run_number }}.tgz
+          asset_path: packaged-charts/k8s-playwright-cronjob-0.1.0.tgz
           asset_name: k8s-playwright-cronjob-${{ github.run_number }}.tgz
           asset_content_type: application/gzip
         env:
