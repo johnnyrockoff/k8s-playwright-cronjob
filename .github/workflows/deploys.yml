@@ -1,9 +1,9 @@
-name: Publish Helm Chart 1.0
+name: Publish Helm Chart 1.0.0
 
 on:
   push:
     branches:
-      - master  # Change this to the branch you want to trigger the workflow on
+      - develop  # Change this to the branch you want to trigger the workflow on
 
 jobs:
   package_and_publish:
