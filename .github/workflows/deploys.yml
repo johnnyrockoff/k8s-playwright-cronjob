@@ -52,7 +52,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: List Folders
-        run: ls -la
+        run: ls -la packaged-charts
 
       - name: Upload Helm Chart to Release
         uses: actions/upload-release-asset@v1
