@@ -1,0 +1,58 @@
+name: Publish Helm Chart
+
+on:
+  push:
+    branches:
+      - master  # Change this to the branch you want to trigger the workflow on
+
+jobs:
+  package_and_publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.17'
+        id: go
+
+      - name: Set up Helm
+        run: |
+          curl -sSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+          helm version --client
+
+      - name: Package Helm Chart
+        run: |
+          helm package ./test-suites -d packaged-charts
+
+      - name: Set up Git
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+
+      - name: Commit and Push Changes
+        run: |
+          git checkout -b update-charts
+          git add packaged-charts/*
+          git commit -m "Update Helm chart packages [skip ci]"
+          git push origin update-charts
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.run_number }}
+          release_name: Release ${{ github.run_number }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Helm Chart to Release
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: packaged-charts/*
+          asset_name: your-chart-name-${{ github.run_number }}.tgz
+          asset_content_type: application/gzip
