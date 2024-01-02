@@ -1,0 +1,28 @@
+# deployment.yaml
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ include "playwright-tests.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "playwright-tests.name" . }}
+    helm.sh/chart: {{ include "playwright-tests.chart" . }}
+spec:
+  schedule: {{ .Values.playwright.cronJob.schedule }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: playwright-tests
+              image: "ablt01acrvczb6dxwjz.azurecr.io/mojito/playwright-baseimage:1.0.6"
+              command: [""]
+              volumeMounts:
+                - name: test-files
+                  mountPath: /usr/src/app/tests
+          volumes:
+            - name: test-files
+              configMap:
+                name: {{ include "playwright-tests.fullname" . }}
+                items:
+                  - key: testFiles
+                    path: tests/

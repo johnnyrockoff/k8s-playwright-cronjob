@@ -1,0 +1,10 @@
+playwright:
+  version: "1.17.1"
+  browsers:
+    - name: "chromium"
+      options:
+        headless: true
+  testFiles:
+    - "tests/*.js"
+  cronJob:
+    schedule: "* * * * *"
